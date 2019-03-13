@@ -13,10 +13,11 @@ db.once('open', function() {
 
 var cookieSchema = mongoose.Schema({
   id: Number,  //this should uniquely identify cookies by type/location
-  location: String,
   rating: Number,
   type: String,
+  size: String,
   description: String,
+  location: String,
   address: String
 });
 
