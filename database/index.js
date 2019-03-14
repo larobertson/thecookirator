@@ -1,36 +1,68 @@
 require('dotenv').config()
-var mongoose = require('mongoose');
-db = mongoose.createConnection(`${process.env.DB_CONNECT}`, {useNewUrlParser: true});
-
-
-db.on('error', function() {
-  console.log('mongoose connection error');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost:27017/mvp', {useNewUrlParser: true},(err) => {
+  if (err) {
+      console.log('error in mongoose.connect', err)
+  } else {
+      console.log('database connected')
+  }
 });
 
-db.once('open', function() {
-  console.log('mongoose connected successfully');
-});
+// db.on('error', function() {
+//   console.log('mongoose connection error');
+// });
 
-var cookieSchema = mongoose.Schema({
-  id: Number,  //this should uniquely identify cookies by type/location
+// db.once('open', function() {
+//   console.log('mongoose connected successfully');
+// });
+
+const cookieSchema = mongoose.Schema({
   rating: Number,
   type: String,
   size: String,
   description: String,
   location: String,
   address: String
+},
+{
+  collection: 'cookies'
 });
 
-var Cookie = mongoose.model('Cookie', cookieSchema);
+let Cookie = mongoose.model('Cookie', cookieSchema);
 
-var selectAll = function(callback) {
-  Cookie.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
+const insertCookie = (addCookie, cb) => {
+  console.log('here is a database cookie, ', addCookie)
+  let cookieDoc = new Cookie({
+    rating: addCookie.rating,
+    type: addCookie.type,
+    size: addCookie.size,
+    description: addCookie.description,
+    location: addCookie.location,
+    address: addCookie.address
+  })
+
+
+  // save model to database
+  cookieDoc.save((err, data) => {
+    if (err) {
+      console.log('error saving to database', err)
     } else {
-      callback(null, items);
+     cb(null, data)
     }
+  })
+}
+
+
+const selectAll = function(callback) {
+  console.log('trying to run find')
+  Cookie.find({}, function(err, items) {
+    console.log(items)
+    callback(null, items)
   });
 };
 
-module.exports.selectAll = selectAll;
+module.exports = {
+  insertCookie,
+  selectAll
+}
