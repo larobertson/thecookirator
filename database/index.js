@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost:27017/mvp', {useNewUrlParser: true},(err) 
       console.log('database connected')
   }
 });
+mongoose.set('useCreateIndex', true);
 
 // db.on('error', function() {
 //   console.log('mongoose connection error');
@@ -27,6 +28,12 @@ const cookieSchema = mongoose.Schema({
 },
 {
   collection: 'cookies'
+});
+cookieSchema.index({
+  'type': 'text',
+  'size': 'text',
+  'description': 'text',
+  'location': 'text'
 });
 
 let Cookie = mongoose.model('Cookie', cookieSchema);
@@ -53,16 +60,24 @@ const insertCookie = (addCookie, cb) => {
   })
 }
 
-
+//initial get request to select EVERYTHING
 const selectAll = function(callback) {
-  console.log('trying to run find')
   Cookie.find({}, function(err, items) {
-    console.log(items)
     callback(null, items)
+  });
+};
+
+//narrow down with search results
+const searchText = function(searchString, cb) {
+  console.log('this is the searchstring', searchString)
+  Cookie.find({$text: {$search: searchString}}, function(err, items) {
+    console.log(items)
+    cb(null, items)
   });
 };
 
 module.exports = {
   insertCookie,
-  selectAll
+  selectAll,
+  searchText
 }

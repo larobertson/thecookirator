@@ -5,6 +5,7 @@ import { Container, Row, Col, Navbar, Nav, Form, FormControl, Button } from 'rea
 import Axios from 'axios';
 import Input from './components/Input.jsx';
 import List from './components/List.jsx';
+import Navc from './components/Nav.jsx'
 
 const inputStyles= {
   marginTop: '20px'
@@ -13,7 +14,8 @@ const inputStyles= {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
+      search: '', 
       cookies: []
     }
   }
@@ -35,25 +37,23 @@ class App extends React.Component {
     .catch((err) => console.log(`Axios could not POST: ${err}`))
   }
 
-  handleSearch() {
+  handleSearch(searchState, cb) {
     //allow users to query cookie types
+    console.log('is this the search state?', searchState)
+    Axios.get('/search', {
+      params: {
+        search: searchState
+      }})
+    .then((data) => this.setState({
+      cookies: data.data
+    }))
+    .catch((err) => console.log('could not perform search', err))
   }
 
   render () {
     return (
     <div>
-      <Navbar bg="info" variant="light" fixed="top">
-        <Navbar.Brand href="#home">The Cookierator</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
-        </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-light">Search</Button>
-        </Form>
-      </Navbar>
+      <Navc handleSearch={this.handleSearch.bind(this)}/>
       <Container>
         <Row className="justify-content-md-center">
           <Col lg={true}>

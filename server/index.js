@@ -16,20 +16,31 @@ app.get('/cookies', function (req, res) {
     if(err) {
       res.sendStatus(500);
     } else {
-      console.log('we got something back', data)
       res.send(data)
     }
   });
 });
 
+app.get('/search', function (req, res) {
+  console.log('this is the req.query', req.query)
+  let searchString = req.query.search
+  db.searchText(searchString, function(err, data) {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data)
+    }
+  })
+})
+
 app.post('/newCookie', function (req, res) {
-  console.log('what is this ---->', req.body)
   let newCookie = req.body; //this is an object formatted to go into the db
   db.insertCookie(newCookie, (err, data) => {
     if (err) { console.log(err, 'error in insert')}
     else { res.send(200) } 
   })
 })
+
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');
