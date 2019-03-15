@@ -1,0 +1,25 @@
+import React from 'react';
+import { CardDeck, Container } from 'react-bootstrap';
+import CookieMarker from './Markers.jsx';
+
+
+class ListMarker extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  componentDidUpdate (prevProps) {
+    if (this.props.cookies !== prevProps.cookies) {
+    }
+  }
+  
+  render () {
+    return (
+      <div>
+          { this.props.cookies.map((cookie, key) => <CookieMarker cookie={cookie} key={key}/>)}
+      </div>
+    )
+  }
+}
+
+export default ListMarker;

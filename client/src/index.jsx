@@ -6,6 +6,7 @@ import Axios from 'axios';
 import Input from './components/Input.jsx';
 import List from './components/List.jsx';
 import Navc from './components/Nav.jsx'
+import Map from './components/Map.jsx';
 
 const inputStyles= {
   marginTop: '20px'
@@ -16,7 +17,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       search: '', 
-      cookies: []
+      cookies: [],
+      toggle: true
     }
   }
 
@@ -33,7 +35,9 @@ class App extends React.Component {
   handleInput(formState, cb) {
     console.log('this is the form state', formState)
     Axios.post('/newCookie', formState)
-    .then(() => console.log('posted successfully!'))
+    .then(() => this.setState({
+      toggle: !this.state.toggle
+    }))
     .catch((err) => console.log(`Axios could not POST: ${err}`))
   }
 
@@ -48,6 +52,18 @@ class App extends React.Component {
       cookies: data.data
     }))
     .catch((err) => console.log('could not perform search', err))
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.toggle !== prevState.toggle) {
+      Axios.get('/cookies')
+      .then((data) => {
+        this.setState({
+          cookies: data.data
+        })
+      })
+      .catch((err) => console.log('something went wrong', err))
+    }
   }
 
   render () {
@@ -65,7 +81,12 @@ class App extends React.Component {
       <div>
       <Container style={inputStyles}>
         <Row className="justify-content-md-center">
-          <Col xs={7}>
+          <Col md="auto">
+            <Card interactive={false} elevation={Elevation.THREE}>
+              <Map cookies={this.state.cookies}/>
+            </Card>
+          </Col>
+          <Col md="auto">
             <Card interactive={false} elevation={Elevation.THREE}>
               <Input handleInput={this.handleInput.bind(this)}/>
             </Card>
@@ -73,6 +94,8 @@ class App extends React.Component {
         </Row>
       </Container>;
       </div>
+
+      
 
     </div>)
   }
