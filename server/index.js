@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const db = require('../database/index.js');
 
 const app = express();
-
+//hi
 
 app.use('/', express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());

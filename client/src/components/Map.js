@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Marker, withGoogleMap, GoogleMap } from 'react-google-maps';
-import CookieMarker from './Markers.jsx';
-import ListMarker from './ListMarker.jsx';
+import { withGoogleMap, GoogleMap } from 'react-google-maps';
+import ListMarker from './ListMarker';
 
 class Map extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class Map extends Component {
    const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter = { { lat: 30.267153, lng: -97.7430608 } }
-        defaultZoom = { 13 }
+        defaultZoom = { 12 }
       >
         <ListMarker cookies={this.props.cookies}/>
       </GoogleMap>

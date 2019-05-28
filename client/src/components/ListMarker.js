@@ -1,6 +1,5 @@
 import React from 'react';
-import { CardDeck, Container } from 'react-bootstrap';
-import CookieMarker from './Markers.jsx';
+import CookieMarker from './Markers';
 
 
 class ListMarker extends React.Component {

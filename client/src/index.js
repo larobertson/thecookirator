@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card, Elevation } from "@blueprintjs/core";
-import { Container, Row, Col, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Container, Row, Col} from 'react-bootstrap';
 import Axios from 'axios';
-import Input from './components/Input.jsx';
-import List from './components/List.jsx';
-import Navc from './components/Nav.jsx'
-import Map from './components/Map.jsx';
+import Input from './components/Input';
+import List from './components/List';
+import Navc from './components/Nav'
+import Map from './components/Map';
 
 const inputStyles= {
   marginTop: '20px'

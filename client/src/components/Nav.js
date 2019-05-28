@@ -4,7 +4,7 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 const cookieImg = {
   width: '30px',
   height: '30px',
-  marginRight: '10px'
+  marginRight: '20px'
 }
 
 class Navc extends React.Component {

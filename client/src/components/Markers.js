@@ -13,7 +13,7 @@ class CookieMarker extends React.Component {
   //pass down props with the lat and lng for each cookie item
   componentDidMount() {
     let addressQ = (this.props.cookie.address).split(' ').join('+')
-    Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressQ}&key=AIzaSyCZ_LC5fdDaNCvAqvlidJ326zfByUn_UBg`)
+    Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${addressQ}&key=AIzaSyCIoziGSeUQ7GQO6e7BAEbBPgnk95KHGEI`)
     .then((results) => {
       let lat = results.data.results[0].geometry.location.lat;
       let lng = results.data.results[0].geometry.location.lng;
