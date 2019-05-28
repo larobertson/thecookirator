@@ -1,7 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-mongoose.connect('mongodb://localhost:27017/mvp', {useNewUrlParser: true},(err) => {
+mongoose.connect(`${process.env.DB_CONNECT}`, {useNewUrlParser: true},(err) => {
   if (err) {
       console.log('error in mongoose.connect', err)
   } else {
