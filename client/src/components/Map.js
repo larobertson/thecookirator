@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Marker, withGoogleMap, GoogleMap } from 'react-google-maps';
-import CookieMarker from './Markers.jsx';
-import ListMarker from './ListMarker.jsx';
+import CookieMarker from './Markers';
+import ListMarker from './ListMarker';
 
 class Map extends Component {
   constructor(props) {
