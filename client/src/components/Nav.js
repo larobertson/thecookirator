@@ -27,7 +27,7 @@ class Navc extends React.Component {
         <Navbar bg="info" variant="light" fixed="top">
           <Navbar.Brand href="http://localhost:3000">
           <img src="http://cdn.onlinewebfonts.com/svg/img_568622.png" style={cookieImg}/>
-          The Cookierator
+          The Cookirator
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="http://localhost:3000">Home</Nav.Link>
