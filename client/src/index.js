@@ -5,7 +5,7 @@ import { Container, Row, Col} from 'react-bootstrap';
 import Axios from 'axios';
 import Input from './components/Input';
 import List from './components/List';
-import Navc from './components/Nav'
+import Navc from './components/Nav';
 import Map from './components/Map';
 
 const inputStyles= {
