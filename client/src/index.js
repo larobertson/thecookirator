@@ -20,19 +20,25 @@ class App extends React.Component {
       cookies: [],
       toggle: true,
       page: 1,
-      pageCount: 1
+      pageCount: 1,
+      count: 0
     }
   }
 
-  componentDidMount() {
+  getEm() {
     Axios.get(`/cookies/${this.state.page}`)
     .then((data) => {
       console.log('this is the new data', data)
       this.setState({
-        cookies: data.data.items
+        cookies: data.data.items,
+        count: data.data.count
       })
     })
     .catch((err) => console.log('something went wrong', err))
+  }
+
+  componentDidMount() {
+    this.getEm()
   }
 
   handleInput(formState, cb) {
@@ -64,13 +70,7 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.toggle !== prevState.toggle) {
-      Axios.get('/cookies')
-      .then((data) => {
-        this.setState({
-          cookies: data.data
-        })
-      })
-      .catch((err) => console.log('something went wrong', err))
+      this.getEm()
     }
   }
 
@@ -82,7 +82,7 @@ class App extends React.Component {
         <Row className="justify-content-md-center">
           <Col lg={true}>
             <h1>Hello Cookies</h1>
-            <List cookies={this.state.cookies}/>
+            <List cookies={this.state.cookies} count={this.state.count}/>
           </Col>
         </Row>
       </Container>
