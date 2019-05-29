@@ -21,7 +21,7 @@ class List extends React.Component {
       <div>
         There are { this.props.cookies.length } cookies.
         <CardDeck>
-          { this.props.cookies.map((cookie, key) => <ListItem cookie={cookie} key={key}/>)}
+          { this.props.cookies.map((cookie, key) => <ListItem cookie={cookie} key={key}/>) }
         </CardDeck>
       </div>
     )

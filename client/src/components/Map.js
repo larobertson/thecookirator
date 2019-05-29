@@ -12,7 +12,7 @@ class Map extends Component {
    const GoogleMapExample = withGoogleMap(props => (
       <GoogleMap
         defaultCenter = { { lat: 30.267153, lng: -97.7430608 } }
-        defaultZoom = { 13 }
+        defaultZoom = { 12 }
       >
         <ListMarker cookies={this.props.cookies}/>
       </GoogleMap>
