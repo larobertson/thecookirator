@@ -73,7 +73,7 @@ const selectAll = function(limit, page, cb) {
         cb(null, {
           items: items,
           current: page,
-          pages: Math.ceil(items.length / limit),
+          pages: Math.ceil(count / limit),
           count: count
         })
       })
@@ -96,7 +96,7 @@ const searchText = function(searchString, limit, page, cb) {
         cb(null, {
           items: items,
           current: page,
-          pages: Math.ceil(items.length / limit),
+          pages: Math.ceil(count / limit),
           count: count
         })
       })
