@@ -7,6 +7,7 @@ import Input from './components/Input';
 import List from './components/List';
 import Navc from './components/Nav';
 import Map from './components/Map';
+import Paginator from './components/Pagination';
 
 const inputStyles= {
   marginTop: '20px'
@@ -77,12 +78,12 @@ class App extends React.Component {
   render () {
     return (
     <div>
-      <Navc handleSearch={this.handleSearch.bind(this)}/>
+      <Navc handleSearch={this.handleSearch.bind(this)} />
       <Container>
         <Row className="justify-content-md-center">
           <Col lg={true}>
             <h1>Hello Cookies</h1>
-            <List cookies={this.state.cookies} count={this.state.count}/>
+            <List cookies={this.state.cookies} count={this.state.count} />
           </Col>
         </Row>
       </Container>
@@ -91,13 +92,18 @@ class App extends React.Component {
         <Row className="justify-content-md-center">
           <Col md="auto">
             <Card interactive={false} elevation={Elevation.THREE}>
-              <Map cookies={this.state.cookies}/>
+              <Map cookies={this.state.cookies} />
             </Card>
           </Col>
           <Col md="auto">
             <Card interactive={false} elevation={Elevation.THREE}>
-              <Input handleInput={this.handleInput.bind(this)}/>
+              <Input handleInput={this.handleInput.bind(this)} />
             </Card>
+          </Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col md="auto">
+            <Paginator />
           </Col>
         </Row>
       </Container>

@@ -31,8 +31,7 @@ class Navc extends React.Component {
           </Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="http://localhost:3000">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="#favorites">Favorites</Nav.Link>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" onChange={this.handleSearchChange.bind(this)}/>
