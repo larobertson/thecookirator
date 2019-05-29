@@ -65,7 +65,10 @@ class App extends React.Component {
     .then((data) => {
       console.log('what have we here?', data)
       this.setState({
-        cookies: data.data.items
+        cookies: data.data.items,
+        count: data.data.count,
+        page: data.data.current,
+        pageCount: data.data.pages
        })
     })
     .catch((err) => console.log('could not perform search', err))

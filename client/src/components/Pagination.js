@@ -5,7 +5,6 @@ import Pagination from 'react-bootstrap/Pagination';
 const Paginator = (props) => {
   let active = props.page;
   let pageCount = props.pageCount;
-  console.log(props.handlePage)
   let items = [];
   for (let number = 1; number <= pageCount; number++) {
     items.push(

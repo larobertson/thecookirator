@@ -73,7 +73,7 @@ const selectAll = function(limit, page, cb) {
         cb(null, {
           items: items,
           current: page,
-          pages: Math.ceil(count / limit),
+          pages: Math.ceil(items.length / limit),
           count: count
         })
       })
@@ -89,12 +89,14 @@ const searchText = function(searchString, limit, page, cb) {
     .limit(limit)
     .exec(function(err, items) {
       if (err) console.log('error!', err)
-      Cookie.countDocuments().exec(function(err, count) {
+      Cookie
+      .find({$text: {$search: searchString}})
+      .countDocuments().exec(function(err, count) {
         if (err) return next(err)
         cb(null, {
           items: items,
           current: page,
-          pages: Math.ceil(count / limit),
+          pages: Math.ceil(items.length / limit),
           count: count
         })
       })

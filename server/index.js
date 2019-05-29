@@ -39,7 +39,7 @@ app.get('/search', function (req, res) {
 app.post('/newCookie', function (req, res) {
   let newCookie = req.body; //this is an object formatted to go into the db
   db.insertCookie(newCookie, (err, data) => {
-    if (err) { console.log(err, 'error in insert')}
+    if (err) { console.log(err, 'error in insert') }
     else { res.send(200) } 
   })
 })
