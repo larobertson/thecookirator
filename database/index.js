@@ -62,6 +62,7 @@ const insertCookie = (addCookie, cb) => {
 
 //initial get request to select EVERYTHING
 const selectAll = function(limit, page, cb) {
+  page = parseInt(page)
   Cookie
     .find({}) 
     .skip((limit * page) - limit)
@@ -69,7 +70,6 @@ const selectAll = function(limit, page, cb) {
     .exec(function(err, items) {
       Cookie.countDocuments().exec(function(err, count) {
         if (err) return next(err)
-        console.log('count?', count)
         cb(null, {
           items: items,
           current: page,
@@ -82,6 +82,7 @@ const selectAll = function(limit, page, cb) {
 
 //narrow down with search results
 const searchText = function(searchString, limit, page, cb) {
+  page = parseInt(page)
   Cookie
     .find({$text: {$search: searchString}})
     .skip((limit * page) - limit)

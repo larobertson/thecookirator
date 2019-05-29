@@ -26,20 +26,22 @@ class App extends React.Component {
     }
   }
 
-  getEm() {
-    Axios.get(`/cookies/${this.state.page}`)
+  getEm(page) {
+    Axios.get(`/cookies/${page}`)
     .then((data) => {
       console.log('this is the new data', data)
       this.setState({
         cookies: data.data.items,
-        count: data.data.count
+        count: data.data.count,
+        page: data.data.current,
+        pageCount: data.data.pages
       })
     })
     .catch((err) => console.log('something went wrong', err))
   }
 
   componentDidMount() {
-    this.getEm()
+    this.getEm(this.state.page)
   }
 
   handleInput(formState, cb) {
@@ -51,7 +53,7 @@ class App extends React.Component {
     .catch((err) => console.log(`Axios could not POST: ${err}`))
   }
 
-  handleSearch(searchState, cb) {
+  handleSearch(searchState) {
     //allow users to query cookie types
     console.log('is this the search state?', searchState)
     Axios.get('/search', {
@@ -69,9 +71,13 @@ class App extends React.Component {
     .catch((err) => console.log('could not perform search', err))
   }
 
+  handlePage(page) {
+    this.getEm(page)
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.toggle !== prevState.toggle) {
-      this.getEm()
+      this.getEm(this.state.page)
     }
   }
 
@@ -87,6 +93,17 @@ class App extends React.Component {
           </Col>
         </Row>
       </Container>
+
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <Paginator 
+            page={this.state.page}
+            pageCount={this.state.pageCount}
+            handlePage={this.handlePage.bind(this)}
+          />
+        </Col>
+      </Row>
+
       <div>
       <Container style={inputStyles}>
         <Row className="justify-content-md-center">
@@ -99,11 +116,6 @@ class App extends React.Component {
             <Card interactive={false} elevation={Elevation.THREE}>
               <Input handleInput={this.handleInput.bind(this)} />
             </Card>
-          </Col>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col md="auto">
-            <Paginator />
           </Col>
         </Row>
       </Container>

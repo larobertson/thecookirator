@@ -26,7 +26,7 @@ app.get('/cookies/:page', function (req, res) {
 app.get('/search', function (req, res) {
   let searchString = req.query.search;
   let limit = 9;
-  let page = req.params._page || 1;
+  let page = parseInt(req.params._page) || 1;
   db.searchText(searchString, limit, page, function(err, data) {
     if (err) {
       res.sendStatus(500);
