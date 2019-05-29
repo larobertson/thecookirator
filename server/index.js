@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 
 
 
-app.get('/cookies', function (req, res) {
+app.get('/cookies/:page', function (req, res) {
   console.log('trying to get cookies')
-  db.selectAll(function(err, data) {
+  db.selectAll(limit, page, function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
@@ -23,8 +23,10 @@ app.get('/cookies', function (req, res) {
 
 app.get('/search', function (req, res) {
   console.log('this is the req.query', req.query)
-  let searchString = req.query.search
-  db.searchText(searchString, function(err, data) {
+  let searchString = req.query.search;
+  let limit = req.query._limit;
+  let page = req.params.page || 1;
+  db.searchText(searchString, limit, page, function(err, data) {
     if (err) {
       res.sendStatus(500);
     } else {

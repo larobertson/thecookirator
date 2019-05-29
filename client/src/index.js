@@ -18,7 +18,9 @@ class App extends React.Component {
     this.state = {
       search: '', 
       cookies: [],
-      toggle: true
+      toggle: true,
+      page: 1,
+      pageCount: 1
     }
   }
 
@@ -46,11 +48,16 @@ class App extends React.Component {
     console.log('is this the search state?', searchState)
     Axios.get('/search', {
       params: {
-        search: searchState
+        search: searchState,
+        _page: this.state.page,
+        _limit: 10
       }})
-    .then((data) => this.setState({
-      cookies: data.data
-    }))
+    .then((data) => {
+      console.log('what have we here?', data.headers)
+      this.setState({
+        cookies: data.data
+       })
+    })
     .catch((err) => console.log('could not perform search', err))
   }
 

@@ -61,19 +61,40 @@ const insertCookie = (addCookie, cb) => {
 }
 
 //initial get request to select EVERYTHING
-const selectAll = function(callback) {
-  Cookie.find({}, function(err, items) {
-    callback(null, items)
-  });
+const selectAll = function(limit, page, cb) {
+  Cookie
+    .find({}) 
+    .skip((limit * page) - limit)
+    .limit(limit)
+    .exec(function(err, items) {
+      Cookie.count().exec(function(err, count) {
+        if (err) return next(err)
+        cb(null, {
+          items: items,
+          current: page,
+          pages: Math.ceil(count / limit)
+        })
+      })
+    })
 };
 
 //narrow down with search results
-const searchText = function(searchString, cb) {
+const searchText = function(searchString, limit, page, cb) {
   console.log('this is the searchstring', searchString)
-  Cookie.find({$text: {$search: searchString}}, function(err, items) {
-    console.log(items)
-    cb(null, items)
-  });
+  Cookie
+    .find({$text: {$search: searchString}})
+    .skip((limit * page) - limit)
+    .limit(limit)
+    .exec(function(err, items) {
+      Cookie.count().exec(function(err, count) {
+        if (err) return next(err)
+        cb(null, {
+          items: items,
+          current: page,
+          pages: Math.ceil(count / limit)
+        })
+      })
+    })
 };
 
 module.exports = {
