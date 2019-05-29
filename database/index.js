@@ -67,8 +67,9 @@ const selectAll = function(limit, page, cb) {
     .skip((limit * page) - limit)
     .limit(limit)
     .exec(function(err, items) {
-      Cookie.count().exec(function(err, count) {
+      Cookie.countDocuments().exec(function(err, count) {
         if (err) return next(err)
+        console.log('limit?', limit)
         cb(null, {
           items: items,
           current: page,
@@ -81,13 +82,16 @@ const selectAll = function(limit, page, cb) {
 //narrow down with search results
 const searchText = function(searchString, limit, page, cb) {
   console.log('this is the searchstring', searchString)
+  console.log(`tell me the limit ${limit} and the page ${page}`)
   Cookie
     .find({$text: {$search: searchString}})
     .skip((limit * page) - limit)
     .limit(limit)
     .exec(function(err, items) {
-      Cookie.count().exec(function(err, count) {
+      if (err) console.log('error!', err)
+      Cookie.countDocuments().exec(function(err, count) {
         if (err) return next(err)
+        console.log('items??', items)
         cb(null, {
           items: items,
           current: page,

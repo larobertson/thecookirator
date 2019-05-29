@@ -12,10 +12,14 @@ app.use(bodyParser.json());
 
 app.get('/cookies/:page', function (req, res) {
   console.log('trying to get cookies')
+  let limit = 10;
+  let page = req.params.page || 1;
+  console.log('what is the page?', req.params.page)
   db.selectAll(limit, page, function(err, data) {
     if(err) {
       res.sendStatus(500);
     } else {
+      console.log('what is data', data)
       res.send(data)
     }
   });
@@ -24,8 +28,8 @@ app.get('/cookies/:page', function (req, res) {
 app.get('/search', function (req, res) {
   console.log('this is the req.query', req.query)
   let searchString = req.query.search;
-  let limit = req.query._limit;
-  let page = req.params.page || 1;
+  let limit = 10;
+  let page = req.params._page || 1;
   db.searchText(searchString, limit, page, function(err, data) {
     if (err) {
       res.sendStatus(500);

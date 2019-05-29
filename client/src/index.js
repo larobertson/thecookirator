@@ -25,10 +25,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('/cookies')
+    Axios.get(`/cookies/${this.state.page}`)
     .then((data) => {
+      console.log('this is the new data', data)
       this.setState({
-        cookies: data.data
+        cookies: data.data.items
       })
     })
     .catch((err) => console.log('something went wrong', err))
@@ -53,9 +54,9 @@ class App extends React.Component {
         _limit: 10
       }})
     .then((data) => {
-      console.log('what have we here?', data.headers)
+      console.log('what have we here?', data)
       this.setState({
-        cookies: data.data
+        cookies: data.data.items
        })
     })
     .catch((err) => console.log('could not perform search', err))
