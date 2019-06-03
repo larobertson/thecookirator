@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('../database/index.js');
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -45,7 +46,7 @@ app.post('/newCookie', function (req, res) {
 })
 
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+app.listen(port, function() {
+  console.log(`listening on port ${port}!`);
 });
 
