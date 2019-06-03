@@ -29,7 +29,6 @@ class App extends React.Component {
   getEm(page) {
     Axios.get(`/cookies/${page}`)
     .then((data) => {
-      console.log('this is the new data', data)
       this.setState({
         cookies: data.data.items,
         count: data.data.count,
@@ -45,7 +44,6 @@ class App extends React.Component {
   }
 
   handleInput(formState, cb) {
-    console.log('this is the form state', formState)
     Axios.post('/newCookie', formState)
     .then(() => this.setState({
       toggle: !this.state.toggle
@@ -55,7 +53,6 @@ class App extends React.Component {
 
   handleSearch(searchState) {
     //allow users to query cookie types
-    console.log('is this the search state?', searchState)
     Axios.get('/search', {
       params: {
         search: searchState,
@@ -63,7 +60,6 @@ class App extends React.Component {
         _limit: 10
       }})
     .then((data) => {
-      console.log('what have we here?', data)
       this.setState({
         cookies: data.data.items,
         count: data.data.count,
