@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import cookie from './images/cookie.png';
 
 const cookieImg = {
   width: '30px',
@@ -26,7 +27,7 @@ class Navc extends React.Component {
       <div>
         <Navbar bg="info" variant="light" fixed="top">
           <Navbar.Brand href="http://localhost:3000">
-          <img src="./images/cokie.png" style={cookieImg}/>
+          <img src={cookie} style={cookieImg}/>
           The Cookirator
           </Navbar.Brand>
           <Nav className="mr-auto">

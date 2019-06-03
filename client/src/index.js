@@ -53,25 +53,36 @@ class App extends React.Component {
 
   handleSearch(searchState) {
     //allow users to query cookie types
-    Axios.get('/search', {
-      params: {
-        search: searchState,
-        _page: this.state.page,
-        _limit: 10
-      }})
-    .then((data) => {
-      this.setState({
-        cookies: data.data.items,
-        count: data.data.count,
-        page: data.data.current,
-        pageCount: data.data.pages
-       })
+    this.setState({
+      search: searchState
     })
-    .catch((err) => console.log('could not perform search', err))
+    if (searchState === '') {
+      this.getEm(1)
+    } else {
+      Axios.get('/search', {
+        params: {
+          search: searchState,
+          _page: this.state.page,
+          _limit: 10
+        }})
+      .then((data) => {
+        this.setState({
+          cookies: data.data.items,
+          count: data.data.count,
+          page: data.data.current,
+          pageCount: data.data.pages
+         })
+      })
+      .catch((err) => console.log('could not perform search', err))
+    }
   }
 
   handlePage(page) {
-    this.getEm(page)
+    if (this.state.search === '') {
+      this.getEm(page)
+    } else {
+      this.heandleSearch(this.state.search)
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
