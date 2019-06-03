@@ -51,19 +51,20 @@ class App extends React.Component {
     .catch((err) => console.log(`Axios could not POST: ${err}`))
   }
 
-  handleSearch(searchState) {
+  handleSearch(searchState, page) {
     //allow users to query cookie types
+    page = page || 1;
     this.setState({
       search: searchState
     })
     if (searchState === '') {
       this.getEm(1)
     } else {
-      Axios.get('/search', {
+      Axios.get(`/search/${page}`, {
         params: {
           search: searchState,
-          _page: this.state.page,
-          _limit: 10
+          _page: page,
+          _limit: 9
         }})
       .then((data) => {
         this.setState({
@@ -78,10 +79,10 @@ class App extends React.Component {
   }
 
   handlePage(page) {
-    if (this.state.search === '') {
-      this.getEm(page)
+    if (this.state.search !== '') {
+      this.heandleSearch(this.state.search, page)
     } else {
-      this.heandleSearch(this.state.search)
+      this.getEm(page)
     }
   }
 
